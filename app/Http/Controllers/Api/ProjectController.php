@@ -114,8 +114,15 @@ class ProjectController extends Controller
         return response()->json( ProjectResource::collection( $projects ) , 200 );
     }
 
-    public function getById(Request $request)
+    public function getByUserId(Request $request)
     {
         $projects   =   Projects::where( 'user_id' , $user->id );
+    }
+
+    public function getById(Request $request, $id)
+    {
+        $project    =   Projects::where( 'id', $id)->first();
+
+        return response()->json( new ProjectResource( $project ) , 200 );
     }
 }

@@ -10,6 +10,7 @@ Route::prefix( 'v1' )->namespace( 'Api' )->group( function() {
         Route::get(  'projects',        'ProjectController@get');
         Route::post( 'projects',        'ProjectController@create');
         Route::post( 'projects/edit ',  'ProjectController@update');
+        Route::get(  'projects/{id}',   'ProjectController@getById');
     // #END# PROJECT
     
     // PROJECT REWARD 
