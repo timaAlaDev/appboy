@@ -1,0 +1,194 @@
+
+.create {
+  max-width: $width;
+  width: 100%;
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  margin: 15px auto;
+}
+.create-container {
+  max-width: 750px;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0px 0px 1px black;
+}
+
+.create-inner {
+  display: grid;
+  grid-template-columns: 34.5% 65.5%;
+  box-shadow: 0px 0px 1px black;
+  input, textarea {
+    padding-left: 15px;
+    box-shadow: 0px 0px 1px black;
+    border: none;
+    outline: none;
+  }
+  textarea {
+    resize: none;
+    height: 100px;
+    padding: 15px;
+  }
+}
+select {
+  padding-left: 10px;
+  font-size: 18px;
+}
+.create-video, .create-img {
+  padding: 15px 0px 15px 15px;
+}
+.size {
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  min-height: 55px;
+  align-items: center;
+  font-family: $Font;
+}
+.size1 {
+  margin-bottom: 0px;
+}
+.size2 {
+  display: flex;
+  justify-content: space-between;
+}
+.size3 {
+  margin-top: 15px;
+}
+
+.fullDescrip-input {
+  height: 350px;
+  padding: 15px;
+}
+
+.create-btn {
+  display: inline-block;
+  box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  height: 50px;
+  width: 150px;
+  margin: 15px auto;
+  @include button
+}
+
+.moder-btn {
+  display: flex;
+  justify-content: center;
+  button {
+    box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    margin:15px 10px;
+    max-height: 50px;
+    width: 150px;
+    @include button;
+  }
+  .moderate-green {
+    background-color: green;
+  }
+}
+.reward-descrip {
+  resize: none;
+}
+
+.tip {
+  color: $red;
+  cursor: pointer;
+  position: relative;
+  padding-right: 15px;
+  &::before {  
+    font-weight: 200;  
+    transition: .3s;
+    font-weight: light;
+    display: block;
+    min-width: 250px;
+    top: -25px;
+    left: 50%;
+    margin-left: -125px;
+    text-align: center;
+    content:  attr(data-tool);
+    position: absolute;
+    background-color:  gray;
+    color: #fff;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.tip:hover::before {
+  font-weight: 200;
+  opacity: 1;
+  visibility: visible;
+}
+
+.authorName-input {
+  display: flex;
+  flex-flow: column;
+}
+
+
+.createProject-inner, .createReward-inner {
+  position: relative;
+}
+.createProject-item-form {
+  word-break: break-all;
+  position: absolute;
+  top: 0;
+  right: -380px;
+  max-width: 356px;
+  width: 100%;
+  transition: .2s ;
+  display: flex;
+  flex-direction: column;
+  box-shadow: black 0px 1px 1px;
+  &:hover {
+    box-shadow: 1px 1px 52px 3px rgba(34, 60, 80, 0.24);
+  }
+  img {   
+      object-fit: cover;
+      margin-bottom: 25px;
+  }
+}
+// Форма вознаграждения
+ 
+.createProject-reward-form {
+  word-break: break-all;
+  box-shadow: 0px 0px 1px 1px rgba(34, 60, 80, 0.17);
+  position: absolute;
+  top: 0;
+  right: -375px;
+  max-width: 356px;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  font-family: $font;
+  padding: 15px;
+  .reward-img {
+    margin: -15px;
+    img {
+    width: 356px;
+    }
+  }
+
+}
+.words {
+  word-break: break-all;
+}
+
+@media screen and (max-width: $width) {
+  .size {
+    font-size: 11px;
+  }
+  .createProject-item-form {
+    position: static;
+    margin: 25px auto;
+  }
+  .createProject-reward-form {
+    position: static;
+    margin: 25px auto;
+  }
+}
+

@@ -1,0 +1,20 @@
+
+.text_header {
+    text-align: center;
+    margin-bottom: 25px;
+    font-family: $Font;
+}
+.Howitworks {
+  margin: 25px auto 100px;
+  max-width: 1140px;
+  width: 100%;
+  p {
+    font-family: $font;
+  }
+}
+
+@media screen and (max-width:1100px) {
+  .Howitworks {
+    padding: 0px 25px;
+  }
+}

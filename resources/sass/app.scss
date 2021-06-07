@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+@import "maine";
+@import "navFoot";
+@import "reg";
+@import "howItWorks";
+@import "project";
+@import "allProjects";
+@import "createProject";
+@import "profile";
+@import "settings";
+@import "carousel-slider";
+@import "bill";
+@import "projectAuthorInv";
+@import "burgerSideMenu";
+@import "TermsCondition";
+@import "admin";
+@import "modall";
+@import "projectHead";
+@import "projectMain";
+
+
+html {
+    font-family: $font;
+    background-color: #fff;
+    box-sizing: border-box;
+    width: 100%;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+.main {
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+}  
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #E71A3F;
+    border-radius: 5px;
+}
+button {
+  border: none;
+}

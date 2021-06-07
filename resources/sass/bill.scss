@@ -1,0 +1,47 @@
+.bill {
+  -webkit-box-shadow: 16px 17px 33px -10px rgba(34, 60, 80, 0.13);
+  -moz-box-shadow: 16px 17px 33px -10px rgba(34, 60, 80, 0.13);
+  box-shadow: 16px 17px 33px -10px rgba(34, 60, 80, 0.13);;
+  
+  background-color: rgb(255, 255, 255);
+  max-width: 1140px;
+  padding: 20px 50px;
+  margin: 5vw auto;
+  text-align: center;
+  
+  h2 {
+    font-size: 30px;
+  }
+
+  div {
+    text-align: left;
+    margin-top: 10px;
+
+    label {
+      font-size: 25px;
+      color: rgb(17, 17, 17);
+    }
+
+    p {
+      color: $red;
+      font-style: inherit;
+    }
+
+    span {
+      margin-left: 10px;
+      font-size: 20px;
+      font: 400;
+    }
+  }
+
+  .konvert {
+    text-align: center;
+  }
+
+  button {
+  margin: 0 auto;
+  width: 180px;
+  height: 30px;
+  @include button 
+}
+}

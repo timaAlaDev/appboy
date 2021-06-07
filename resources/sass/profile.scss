@@ -1,0 +1,153 @@
+.profile-page {
+  display: flex;
+  max-width: $width;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 15px;
+  padding: 15px;
+  position: relative;
+  .profile-img {
+    img {
+      max-width: 160px;
+      max-height: 160px;
+    }
+    .img-change {
+      display: flex;
+      justify-content: space-between;
+      button {
+        background: none;
+        color: $red;
+        font-size: 14px;
+        text-decoration: underline;
+      }
+    }
+  }
+  .profile-edit {
+    display: flex;
+    width: 100%;
+    input, select  {
+      width: 100%;
+      border: none;
+      box-shadow: 0px 0px 1px black;
+      height: 50px;
+      padding: 15px;
+      margin: 15px 0px;
+      font-weight: 500;
+      opacity: .9;
+    }
+
+    .block-1 {
+      width: 100%;
+      margin: 0px 10px;
+      .profile-name {
+        position: relative;
+        &::before{
+          white-space: nowrap;
+          content: 'Имя';
+          position: absolute;
+          top: -10px;
+          opacity: .5;
+      }
+      }
+      .profile-password {
+        position: relative;
+        &::before{
+          white-space: nowrap;
+          content: 'Пароль';
+          position: absolute;
+          top: -10px;
+          opacity: .5;
+      }
+      }
+      .profile-city {
+        position: relative;
+        &::before{
+          white-space: nowrap;
+          content: 'Город';
+          position: absolute;
+          top: -10px;
+          opacity: .5;
+      }
+      }
+
+  
+    }
+    .block-2 {
+      width: 100%;
+      .profile-email {
+        position: relative;
+        &::before{
+          white-space: nowrap;
+          content: 'Почта';
+          position: absolute;
+          top: -10px;
+          opacity: .5;
+      }
+      }
+      .profile-number {
+        position: relative;
+        &::before{
+          white-space: nowrap;
+          content: 'Контактный телефон';
+          position: absolute;
+          top: -10px;
+          opacity: .5;
+      }
+      }
+    }
+  }
+  .save-edit {
+    button {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-weight: 500;
+      width: 250px;
+      height: 40px;
+      @include button;
+    }
+  }
+}
+
+
+
+@media screen and (max-width:800px) {
+  .profile-page {
+    .profile-edit {
+      flex-wrap: wrap;
+    }
+    .save-edit {
+      button {
+        bottom: -30px;
+        left: 50%;
+        margin-left: -125px;
+      }
+    }
+
+  }
+
+}
+@media screen and (max-width:600px) {
+  .profile-page {
+    padding: 0;
+    margin: 25px 0px;
+    flex-wrap: wrap;
+    justify-content: center;
+    .save-edit {
+      button {
+        bottom: -40px;
+      }
+    }
+    .profile-edit {
+      margin-top: 25px;
+      flex-flow: column;
+      align-items: center;
+      padding: 0px 10px;
+    }
+  }
+
+}
+
+
+
+

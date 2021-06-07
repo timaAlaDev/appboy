@@ -1,0 +1,99 @@
+
+.ProjectHead {
+  font-family: $font;
+  display: flex;
+  max-width: $width;
+  .head__img {
+    img {
+      object-fit: fill;
+      width: 650px;
+      height: 350px;
+      -webkit-box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+    }
+  }
+  .head__right {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0px 0px 30px;
+    .ProjectHead__descrip {
+      overflow: hidden;
+      line-height: 1.1;
+    }
+  }
+  .head__under {
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 15px;
+  }
+  .projectHead__title {
+    line-height: 1.1;
+    font-weight: bold;
+    font-size: 28px;
+    font-family: $Font;
+  }
+  .projectHead__flex {
+    .head__score, .head__contacts {
+      display: flex;
+      justify-content: space-between;
+    }
+    .head__score {
+      margin-top: 20px;
+    }
+    .head__author {
+      img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+      }
+    }
+    .head__social {
+      a {
+        color: black;
+        font-size: 24px;
+        margin-left: 10px;
+        opacity: .5;
+      }
+      
+    }
+    .head__count {
+      margin-top: 30px;
+    .headCurrentCount {
+      font-weight: bolder;
+      font-size: 30px;
+    }
+  }
+  .head__patreons {
+    margin-top: 30px;
+    .patreonsCount {
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .daysBefore {
+      float: right;
+      font-family: $font;
+    }
+  } 
+    .head__button {
+      flex-shrink: 0;
+      button {
+        -webkit-box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+        border: none;
+        margin: 25px auto 0px;
+        font-weight: bold;
+        width: 200px;
+        height: 50px;
+        @include button
+    }
+  }
+}
+.days_before {
+  font-size: 16px;
+  color: black;
+}  
+}
