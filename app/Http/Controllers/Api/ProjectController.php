@@ -72,21 +72,6 @@ class ProjectController extends Controller
             $project->video_or_animation = $this->uploadFile($request->video_or_animation,'video_or_animation');
         }
         $project->detail_description    =   $request->detail_description    ?? $project->detail_description;
-        $project->reward_name           =   $request->reward_name           ?? $project->reward_name;
-        if( $request->reward_image )
-        {
-            if( \File::exists( $project->reward_image ) )
-            {
-                \File::delete( $project->reward_image );
-            }
-
-            $project->reward_image = $this->uploadFile($request->reward_image,'rewards');
-        }
-        $project->reward_cost           =   $request->reward_cost           ?? $project->reward_cost;
-        $project->description_reward    =   $request->description_reward    ?? $project->description_reward;
-        $project->how_to_get_reward     =   $request->how_to_get_reward     ?? $project->how_to_get_reward;
-        $project->number_of_rewards     =   $request->number_of_rewards     ?? $project->number_of_rewards;
-        $project->date_sending_reward   =   $request->date_sending_reward   ?? $project->date_sending_reward;
         $project->author                =   $request->author                ?? $project->author;
         $project->author_last_name      =   $request->author_last_name      ?? $project->author_last_name;
         $project->author_patronymic     =   $request->author_patronymic     ?? $project->author_patronymic;
