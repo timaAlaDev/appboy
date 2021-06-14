@@ -57,7 +57,7 @@ class ProjectController extends Controller
 
             $project->image = $this->uploadFile($request->image,'projects');
         }
-        $project->title                 =   $request->title                 ?? ( $project->title             ?? null );
+        // $project->title                 =   $request->title                 ?? ( $project->title             ?? null );
         $project->short_description     =   $request->short_description     ?? ( $project->short_description ?? null );
         $project->city_id               =   $request->city_id               ?? $project->city_id;
         $project->sum_of_money          =   $request->sum_of_money          ?? $project->sum_of_money;
