@@ -21,6 +21,10 @@ Route::prefix( 'v1' )->namespace( 'Api' )->group( function() {
     // PROJECT PAYMENT
         Route::post('project_payment',  'ProjectPaymentController@create');
     // #END# PROJECT PAYMENT
+
+    // USER
+        Route::post('user/edit',    'UserController@edit');
+    // #END# USER
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

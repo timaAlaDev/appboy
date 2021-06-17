@@ -104,4 +104,39 @@ class UserController extends Controller
 
         return response()->json(  $user  ,200 , [ 'charset' => 'utf-8' ] , JSON_UNESCAPED_UNICODE );
     }
+
+    public function edit(Request $request)
+    {
+        $rules = [
+            'id'    =>  'required|exists:users,id',
+        ];
+
+        $messages = [
+            // 
+        ];
+
+        $validator = $this->validator($request->all(),$rules,$messages);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->first(),400,['charset'=>'utf-8'],JSON_UNESCAPED_UNICODE);
+        }
+
+        $user   =   User::where( 'id' , $request->id )->first();
+
+        $user->name     =   $reqeust->name  ?? $user->name;
+
+        if( isset( $request->password_old ) && isset( $request->password_new ) )
+        {
+            if( !\Hash::check( $request->password_old , $user->password ) )
+            {
+                return response()->json( 'Неверный пароль' , 400 , [ 'charset' => 'utf-8' ] , JSON_UNESCAPED_UNICODE );
+            }
+            
+            $user->password = bcrypt($request->password_new);
+        }
+
+        $user->save();
+
+        return response()->json(  $user  ,200 , [ 'charset' => 'utf-8' ] , JSON_UNESCAPED_UNICODE );
+    }
 }
