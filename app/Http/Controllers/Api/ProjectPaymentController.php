@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use \App\Models\User;
 use \App\Models\ProjectPayment;
 use Illuminate\Http\Request;
 use \App\Http\Controllers\Controller;
@@ -27,12 +28,28 @@ class ProjectPaymentController extends Controller
             return response()->json($validator->errors()->first(),400,['charset'=>'utf-8'],JSON_UNESCAPED_UNICODE);
         }
 
-        $project_payment    =   new ProjectPayment;
-        $project_payment->user_id       =   $request->user_id;
-        $project_payment->project_id    =   $request->project_id;
-        $project_payment->reward_id     =   $request->reward_id;
-        $project_payment->sum           =   $request->sum;
-        $project_payment->save();
+        $user   =   User::where( 'id' , $request->user_id )->first();
+
+        $user_wallet_balance    =   (int)$user->wallet - (int)$request->sum;
+
+        if( $user_wallet_balance < 0 )
+        {
+            return response()->json( 'Недостаточно средств на счету' , 400 , ['charset'=>'utf-8'], JSON_UNESCAPED_UNICODE );
+        }
+
+        // CREATE PAYMENT
+            $project_payment    =   new ProjectPayment;
+            $project_payment->user_id       =   $request->user_id;
+            $project_payment->project_id    =   $request->project_id;
+            $project_payment->reward_id     =   $request->reward_id;
+            $project_payment->sum           =   $request->sum;
+            $project_payment->save();
+        // #END# CREATE PAYMENT
+
+        // USER
+            $user->wallet   =   $user_wallet_balance;
+            $user->save();
+        // #END# USER
 
         return response()->json( $project_payment , 200 );
     }
