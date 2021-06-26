@@ -23,8 +23,21 @@ Route::prefix( 'v1' )->namespace( 'Api' )->group( function() {
     // #END# PROJECT PAYMENT
 
     // USER
-        Route::post('user/edit',    'UserController@edit');
+        Route::post('user/edit',                        'UserController@edit');
+
+        // RESTORE PASSWORD
+            Route::post('user/restore_password_email_send', 'UserController@restorePasswordEmailSend');
+            Route::post('user/restore_password_email',      'UserController@restorePasswordEmail');
+        // #END# RESTORE PASSWORD
+
     // #END# USER
+
+    // CITY
+        Route::get(     'city',         'CityController@get');
+        Route::post(    'city',         'CityController@create');
+        Route::put(     'city/{id}',    'CityController@update');
+        Route::delete(  'city/{id}',    'CityController@delete');
+    // #END# CITY
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
