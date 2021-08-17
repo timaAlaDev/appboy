@@ -35,10 +35,15 @@ class ProjectController extends Controller
         $project->author_city_id        =   $request->author_city_id        ?? null;
         $project->iin                   =   $request->iin                   ?? null;
         $project->phone                 =   $request->phone                 ?? null;
-        if( $request->document )
+        if( $request->document_front )
         {
-            $project->document = $this->uploadFile($request->document,'document');
+            $project->document_front = $this->uploadFile($request->document_front,'documents');
         }
+        if( $request->document_back )
+        {
+            $project->document_back = $this->uploadFile($request->document_back,'documents');
+        }
+        
         $project->save();
 
         return response()->json( new ProjectResource( $project ) , 200 );
@@ -46,51 +51,53 @@ class ProjectController extends Controller
 
     public function update(Request $request)
     {
-        $project    =   Projects::where( 'id' , $request->project_id )->first();
+        $project    =   Projects::where( 'id' , $request->id )->first();
 
-        if( $request->image )
+        if( $request->file('image'))
         {
             if( \File::exists( $project->image ) )
             {
                 \File::delete( $project->image );
             }
-
-            $project->image = $this->uploadFile($request->image,'projects');
+            
+            $project->image = $this->uploadFile($request->file('image'),'projects');
         }
-        // $project->title                 =   $request->title                 ?? ( $project->title             ?? null );
+        $project->title                 =   $request->title                 ?? ( $project->title             ?? null );
         $project->short_description     =   $request->short_description     ?? ( $project->short_description ?? null );
         $project->city_id               =   $request->city_id               ?? $project->city_id;
         $project->sum_of_money          =   $request->sum_of_money          ?? $project->sum_of_money;
-        $project->closed_at             =   $request->closed_at             ?? $project->closed_at;
-        if( $request->video_or_animation )
-        {
-            if( \File::exists( $project->video_or_animation ) )
-            {
-                \File::delete( $project->video_or_animation );
-            }
-
-            $project->video_or_animation = $this->uploadFile($request->video_or_animation,'video_or_animation');
-        }
-        $project->detail_description    =   $request->detail_description    ?? $project->detail_description;
+        $project->closed_at             =   $request->closed_at             ?? ( $project->closed_at         ?? null );
+        $project->video_or_animation    =   $request->video_or_animation    ?? ( $project->video_or_animation ?? null);
+        $project->detail_description    =   $request->detail_description    ?? ( $project->detail_description ?? null );  
         $project->author                =   $request->author                ?? $project->author;
         $project->author_last_name      =   $request->author_last_name      ?? $project->author_last_name;
         $project->author_patronymic     =   $request->author_patronymic     ?? $project->author_patronymic;
         $project->author_city_id        =   $request->author_city_id        ?? $project->author_city_id;
         $project->iin                   =   $request->iin                   ?? $project->iin;
         $project->phone                 =   $request->phone                 ?? $project->phone;
-        if( $request->document )
+        if( $request->file('document_front') )
         {
-            if( \File::exists( $project->document ) )
+            if( \File::exists( $project->document_front ) )
             {
-                \File::delete( $project->document );
+                \File::delete( $project->document_front );
             }
 
-            $project->document = $this->uploadFile($request->document,'document');
+            $project->document_front = $this->uploadFile($request->file('document_front'),'documents');
+        }
+        if( $request->file('document_back') )
+        {
+            if( \File::exists( $project->document_back ) )
+            {
+                \File::delete( $project->document_back );
+            }
+
+            $project->document_back = $this->uploadFile($request->file('document_back'),'documents');
         }
         $project->update();
 
         return response()->json( $project , 200 );
     }
+
 
     public function get(Request $request)
     {

@@ -33,9 +33,15 @@ class ProjectRewardController extends Controller
         $project_reward =   new ProjectReward;
         $project_reward->project_id     =   $request->project_id;
         $project_reward->name           =   $request->name;
-        if( isset( $request->image ) )
+        
+        if( $request->file('image'))
         {
-            $project_reward->image  =   $this->uploadFile($request->image,'rewards');
+            if( \File::exists( $project_reward->image ) )
+            {
+                \File::delete( $project_reward->image );
+            }
+
+            $project_reward->image = $this->uploadFile($request->file('image'),'rewards');
         }
         $project_reward->cost           =   $request->cost;
         $project_reward->description    =   $request->description;

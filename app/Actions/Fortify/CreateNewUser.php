@@ -20,18 +20,18 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        // Validator::make($input, [
-        //     'name' => ['required', 'string', 'max:255', 'regex:/^([а-яА-ЯёЁa-zA-Z]{1,}?([-]{1}|[а-яА-ЯёЁa-zA-Z]{1,19})){2,20}$/u'],
-        //     'email' => [
-        //         'required',
-        //         'regex:/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/u',
-        //         'string',
-        //         'email',
-        //         'max:255',
-        //         Rule::unique(User::class),
-        //     ],
-        //     'password' => $this->passwordRules(),
-        // ])->validate();
+        Validator::make($input, [
+            'name' => ['required', 'string', 'max:255', 'regex:/^([а-яА-ЯёЁa-zA-Z]{1,}?([-]{1}|[а-яА-ЯёЁa-zA-Z]{1,19})){2,20}$/u'],
+            'email' => [
+                'required',
+                'regex:/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/u',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class),
+            ],
+            'password' => $this->passwordRules(),
+        ])->validate();
 
         return User::create([
             'name' => $input['name'],

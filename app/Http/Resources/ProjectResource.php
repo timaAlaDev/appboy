@@ -32,7 +32,8 @@ class ProjectResource extends JsonResource
             'author_city_id'        =>  $this['author_city_id'],
             'iin'                   =>  $this['iin'],
             'phone'                 =>  $this['phone'],
-            'document'              =>  $this['document'],
+            'document_front'        =>  $this['document_front'],
+            'document_back'         =>  $this['document_back'],
         ];
     }
 }
