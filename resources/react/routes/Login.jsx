@@ -1,7 +1,7 @@
 import React from 'react';
 import useForm from './../includes/useForm.jsx'
 import validateinfo from './../includes/validateInfo.jsx'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 const Login = () => {
    const {handleChange, values, errors, handleSubmit} = useForm(validateinfo);
@@ -49,14 +49,22 @@ const Login = () => {
                   />
                   {errors.password && <p className="input-error">{errors.password}</p>}
             </div>
-          <div className="form-create">
-            <button className="form-input-btn" type="submit">
-               Войти
-            </button>
 
-            <span className="form-input-login">
-               <br/> Еще не зарегистрированы? <a href="#">Зарегистрироваться</a>.
-            </span>
+            <div className="form-create">
+               <button className="form-input-btn" type="submit">
+                  Войти
+               </button>
+
+               <Link to= "/forgotPassword">
+                  Забыли пароль?
+               </Link>
+
+               <span className="form-input-login">
+                  <br/> Еще не зарегистрированы? "
+                  <Link to= "/registration">
+                     Зарегистрироваться
+                  </Link>".
+               </span>
             </div>
          </form>
       </div>

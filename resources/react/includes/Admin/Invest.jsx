@@ -1,8 +1,11 @@
 import React from 'react'
 
 const Invest = () => {
+
+
   return (
     <div className="investment">
+      <input type="text" />
       <table border="1px" >
         <tbody>
           <tr>
@@ -14,7 +17,7 @@ const Invest = () => {
               <th>Из проекта</th>
           </tr>
           <tr>
-              <td>Maverick </td>
+              <td>Maverick</td>
               <td>11111</td>
               <td>31.04.2021</td>
               <td>Сьедобная ложка</td>

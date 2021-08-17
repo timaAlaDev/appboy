@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 function Reward(props) {
@@ -53,6 +53,58 @@ function Reward(props) {
     
   }
 
+
+
+  const fileInputRef = useRef();
+  const [image, setImage] = useState();
+  const [preview, setPreview] = useState();
+
+
+  useEffect(() => {
+    
+  }, [image]);
+
+  useEffect(() => {
+    if (image) {
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+    } else {
+    }
+  }, [image]);
+
+
+  useEffect(() => {
+    if (image) {
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+    } else {
+    }
+  }, [image]);
+
+  useEffect(() => {
+    if (image) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(image);
+    } else {
+      setPreview(null)
+    }
+  }, [image]);
+
+  const handleImageChange = (e) => {
+    setPhoto(e.target.value)
+    const file = e.target.files[0];
+    if (file && file.type.substr(0, 5) === "image") {
+      setImage(file);
+    } else {
+      setImage(null);
+    }
+
+  }
+
+
   return (
       <div className="createReward-inner ">
               <form onSubmit={onCreatPost}>
@@ -65,21 +117,32 @@ function Reward(props) {
                           ref={rewardTitleInput}
                           onInput={valueTitle}
                           maxLength="50"
+                          placeholder="Название вознаграждение"
                       />
                   </div>
 
                   <div className="create-inner ">
                       <label className="size">Фото вознаграждения</label>
+                      <div style={{boxShadow: '0px 0px 1px black', padding: '15px 0px 15px 15px'}}>
+                      <button  
+                        className="create-img "
+                        onClick={(event) => {
+                        event.preventDefault();
+                        fileInputRef.current.click();}}>  Загрузить изображение </button> 
                       <input
                           required
                           type="file"
+                          accept="image/*"
                           value={photo}
-                          onChange={(e) => setPhoto(e.target.value)}
+                          onChange={handleImageChange}
                           style={{
                               padding: "15px 0px 15px 15px",
+                              display: "none" 
                           }}
-                          
+                          ref={fileInputRef}
+
                       />
+                      </div>
                   </div>
 
                   <div className="create-inner">
@@ -91,6 +154,7 @@ function Reward(props) {
                           ref={rewardCostInput}
                           onInput={valueCost}
                           maxLength="6"
+                          placeholder="1234 монет"
                       />
                   </div>
 
@@ -108,6 +172,7 @@ function Reward(props) {
                           ref={rewardDescripInput}
                           onInput={valueDescrip}
                           maxLength="300"
+                          placeholder="Можете Максимально подробно расписать, что пользователь получит при выборе данного бонуса.Также моежте уточнить все характеристики и детали вознаграждения."
                       ></textarea>
                   </div>
                   <div className="create-inner">
@@ -138,6 +203,7 @@ function Reward(props) {
                           value={rewardNum}
                           onChange={(e) => setRewardNum(e.target.value)}
                           type="number"
+                          placeholder=""
                       />
                   </div>
 
@@ -158,8 +224,8 @@ function Reward(props) {
                             Добавить еще вознаграждения
                         </button>
 
-                        <button className="create-btn" > 
-                            <Link  onClick={() => props.setToggleState(3)} to= "/editProject/verification" className = "link-text">
+                        <button type="button"  className="create-btn" onClick = {""}> 
+                            <Link to= {`/editProject/verification/${3}`} className = "link-text">
                                 Сохранить и продолжить
                             </Link>
                         </button>
@@ -170,21 +236,22 @@ function Reward(props) {
           <div className="createProject-reward-form">
               <div className="reward-img">
                   <img
-                      src="https://media.giphy.com/media/3ov9k2DPS07zna6EaA/giphy.gif"
+                      src={preview}
                       alt=""
                   />
               </div>
-              <div className="reward-name">
-                  {rewardTitle}
-              </div>
               <div className="children-reward-form">
-              <p className="reward-description">
-        {rewardDescrip}
-              </p>
-              <div className="reward-delivery-date"></div>
-              <div className="reward-cost">
-                  <span>{rewardCost}</span> <button>Купить</button>
-              </div>
+                <div className="reward-name">
+                    {rewardTitle}
+                </div>
+        
+                <p className="reward-description">
+                  {rewardDescrip}
+                </p>
+                <div className="reward-delivery-date"></div>
+                <div className="reward-cost">
+                    <span>{rewardCost}</span> <button>Купить</button>
+                </div>
               </div>
           </div>
       </div>

@@ -14,14 +14,14 @@ header {
     }
     .header__logo {
       img {
-        object-fit: cover;
+        object-fit: contain;
         object-position: center;
         width: 150px;
         height: 50px;
       }
     }
     .headerr-inner {
-      max-width: 1150px;
+      max-width: 1140px;
       width: 100%;
       display: flex;
       align-items: center;
@@ -324,14 +324,25 @@ h6 {
 }
 
 /*************footer End*****************/
-
+@media screen and (min-width: 951px ) {
+  .invisible-bg {
+    display: none;
+  }
+}
 
 @media screen and (max-width:950px) {
   header {
-.headerr-inner {
+  .headerr-inner {
     padding: 0px 25px;
     display: flex;
     justify-content: space-around;
   }
 }
+} 
+
+@media screen and (max-width: 500px) {
+  .header-img[data-img-src] {
+    content: attr(data-img-src);
+  }
 }
+

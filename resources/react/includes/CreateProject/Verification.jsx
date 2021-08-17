@@ -1,7 +1,19 @@
-import axios from "axios";
 import React, { useState } from "react";
+import {Link} from 'react-router-dom'
+import { useHistory } from "react-router";
+import Modall from "../Project/Modall";
+import axios from "axios";
+
 
 function Verification() {
+
+    const history = useHistory()
+
+    const [moderAfter, setModerAfter] = useState(false)
+    const handleModerBtn = () => {
+      setModerAfter(true)
+    }
+
     const [author, setAuthor] = useState("");
     const [authorF, setAuthorF] = useState("");
     const [authorO, setAuthorO] = useState("");
@@ -17,14 +29,12 @@ function Verification() {
         e.preventDefault();
         const postData = {
             author,
-            authorF,
-            authorO,
-            authorBirth,
-            authorCity,
+            author_last_name,
+            author_patronymic,
+            author_city_id,
             iin,
-            phoneNum,
-            authorDocum,
-
+            phone,
+            document,
         };
 
         axios
@@ -149,12 +159,21 @@ function Verification() {
                 </div>
                   <div className="moder-btn">
                     <button>Сохранить</button>
-                    <button className = "moderate-green">
+                    <button onClick={handleModerBtn} className = "moderate-green"> 
                         Отправить на модерацию
                     </button>
+                    <Modall ModallShown={moderAfter} setModallShown={setModerAfter} >
+                      <div className="moder-after">
+                        <div className="moder-after-inner">
+                          <h3>Пока ваш проект рассматривает модерация предлагаем обучиться краудфандингу </h3>
+                          <Link to="/" className="moder-after-link"> Пройти обучение</Link>
+                          <button onClick={e => {history.push('/myProject')}}>Oк</button>
+                        </div>
+                      </div>
+                    </Modall>
                   </div>
             </form>
-        </div>
+        </div>  
     );
 }
 

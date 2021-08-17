@@ -16,9 +16,10 @@ import Admin from './routes/Admin'
 import EditProject from './routes/EditProject'
 import profile from './includes/Settings/Profile.jsx';
 import bill from './includes/Settings/Bill.jsx';
-import projectAuthor from './includes/Settings/ProjectAuthor.jsx';
-import projectInv from './includes/Settings/ProjectInv.jsx';
+import MyProjects from './includes/Settings/MyProjects.jsx';
+import MyInvestions from './includes/Settings/MyInvestions.jsx';
 import Job from './routes/Job.jsx';
+import ForgotPassword from './routes/ForgotPassword.jsx';
 //Импорты страниц routes
 
 
@@ -29,20 +30,20 @@ const Index = (
       <NavBar />
       <Switch>
       <Route exact path="/" component = {Main}/>
-         <Route path="/allProjects/:id" component = {Project}/>
          <Route path="/allProjects" component = {AllProjects}/>
          <Route path="/howItWorks" component = {HowItWorks}/>
          <Route path="/createProject" component = {Opener}/>
-         <Route path="/project" component = {Project}/>
+         <Route path="/project/:id" component = {Project}/>
          <Route path="/Admin" component = {Admin}/>
          <Route path="/editProject" component = {EditProject}/>
          <Route path="/registration" component = {SignUp}/>
          <Route path="/login" component = {Login}/> 
          <Route path="/profile" component = {profile}/>
          <Route path="/bill" component = {bill}/>
-         <Route path="/projectAuthor" component = {projectAuthor}/>
-         <Route path="/projectInv" component = {projectInv}/>
+         <Route path="/myProjects" component = {MyProjects}/>
+         <Route path="/myInvestions" component = {MyInvestions}/>
          <Route path="/job" component = {Job}/> 
+         <Route path="/forgotPassword" component = {ForgotPassword}/> 
       </Switch>
       <Footer />
       </BrowserRouter>

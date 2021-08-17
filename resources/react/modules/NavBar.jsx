@@ -3,29 +3,41 @@ import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import Settings from '../includes/Settings/Settings.jsx'
 import BurgerMenu from './BurgerMenu.jsx';
+import Modall from './../includes/Project/Modall';
+
+
 
 const NavBar = () => {
+
+   const logoCpnet = (process.env.MIX_APP_URL + '/images/cpnetLogo.png')
+   const logoCpnetMobile = (process.env.MIX_APP_URL + '/images/cpnetLogo-mobile.png')
 
    const myCookie = Cookies.get('user_logged_in');
 
    const [isCookie, setIsCookie] = useState(false);
 
    useEffect(() => {
-      if (myCookie) {
-      setIsCookie(true);
-      }
+    if (myCookie) {
+    setIsCookie(true);
+    }
    });
 
    return (
      
    <header>
-    
+     
      <div className="headerr-inner">
-                <div className="burger">
-                     <BurgerMenu/>
-                </div>
+         <div className="burger invisible-bg" >
+            <BurgerMenu/>
+         </div>
+
          <div>
-            <Link to= "/" className="header__logo"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIB4L7ybROqR_f-pMuOjgqgyjNDmxdEsdH4WdY471nCTgtm1zGp6N8Le7fEOveqrU4WWI&usqp=CAU" alt="" /></Link>
+            <Link to= "/" className="header__logo">
+              <picture>
+                <source media="(max-width: 500px)" srcSet={logoCpnetMobile}/>
+                <img src={logoCpnet} />
+              </picture>
+            </Link>
          </div>
        
 
@@ -35,17 +47,8 @@ const NavBar = () => {
 
          <div>
             <Link to= "/allProjects" className="header__url"> Все проекты</Link>
-         </div>
-
-         <form className="header__searchbox">
-            <div className="pseudo-search">
-               <input type="text" placeholder="Поиск" autoFocus required />
-                  <button className="fa fa-search" type="submit" />
-            </div>
-         </form>
-         
+         </div>   
   
- 
          <div style={{
            display: 'flex',
            alignItems: 'center',
@@ -65,8 +68,7 @@ const NavBar = () => {
          {isCookie && 
           <Settings/>
          }
-         </div>
-    
+         </div>    
    </header>
    )
 }

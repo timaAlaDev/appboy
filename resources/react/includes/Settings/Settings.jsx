@@ -35,19 +35,19 @@ const Settings = () => {
             <IoIosArrowDown className="iicon"/>
             <li className="settings__inner">
               <div>
-            <Link to="/profile" className="profile-btn"><MdAccountCircle className="iconn"/>  Мой профиль</Link> 
+            <Link to="/profile" className="profile-btn"><MdAccountCircle className="iconn"/>Мой профиль</Link> 
             </div>
             <div>  
               <Link to="/bill" className="profile-btn"> <RiBilliardsLine className="iconn"/>Средства на счету</Link> 
             </div>
             <div>
-             <Link to="/projectAuthor" className="profile-btn">  <AiFillCopyrightCircle className="iconn"/> Проекты авторство</Link> 
+             <Link to="/myProjects" className="profile-btn">  <AiFillCopyrightCircle className="iconn"/>Мои проекты</Link> 
             </div>
             <div>
-            <Link to="/projectInv"  className="profile-btn">  <FaHandshake className="iconn"/>Проекты инвестиции</Link> 
+            <Link to="/myInvestions"  className="profile-btn">  <FaHandshake className="iconn"/>Мои инвестиции</Link> 
             </div>
             <div >
-            <button className="profile-btn" onClick={handleLogOut}> <FaPowerOff className="iconn"/> Выйти</button>
+            <button className="profile-btn" onClick={handleLogOut}> <FaPowerOff className="iconn"/>Выйти</button>
             </div>
             </li>
           </ul>

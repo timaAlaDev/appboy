@@ -7,9 +7,7 @@ export default function MainLaunched(props) {
                 <img
                     src="https://www.shopcrossgates.com/wp-content/uploads/sites/18/2020/05/1920x1080-356x200.png"
                 />
-                <div className="cattegory-link">
-                    Еда
-                </div>
+
                 <p className="project-title">Сьдобные ложки </p>
                 <div className="project-description">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
@@ -33,9 +31,7 @@ export default function MainLaunched(props) {
                 <img
                     src="https://www.shopcrossgates.com/wp-content/uploads/sites/18/2020/05/1920x1080-356x200.png"
                 />
-                <div className="cattegory-link">
-                    Еда
-                </div>
+
                 <p className="project-title">Сьдобные ложки </p>
                 <div className="project-description">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
@@ -57,9 +53,7 @@ export default function MainLaunched(props) {
                 <img
                     src="https://www.shopcrossgates.com/wp-content/uploads/sites/18/2020/05/1920x1080-356x200.png"
                 />
-                <div className="cattegory-link">
-                    Еда
-                </div>
+
                 <p className="project-title">Сьдобные ложки </p>
                 <div className="project-description">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. At

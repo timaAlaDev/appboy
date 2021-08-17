@@ -2,27 +2,23 @@
 .main-info {
   display: flex;
   flex-flow: column;
+  margin: 20px 0px;
   font-family: $font;
-  .main-img {
-    margin: 20px 0px;
-    img {
-      object-fit: cover;
-      max-width: 700px;
-    }
-    }
-    .main-text {
-        margin: 20px 0px;
-    }
-    .main-video {
-      margin: 20px 0px;
-      img {
-        max-width: 700px;
-        object-fit: cover;
-      }
-    }
+  max-width: 720px;
+  .align-right {
+    text-align: right;
+  }
+  .align-left {
+    text-align: left;
+  }
+  .align-center {
+    text-align: center;
+  }
+  img { 
+    max-width: 100%;
+    height: auto;
+  }
 }
-
-
 
 
 .project-main-info {
@@ -30,9 +26,6 @@
   width: 100%;
   margin: 0px 35px 0px 0px;
 }
-
-
-
 
 .content-tabs {
   flex-grow : 1;
@@ -83,9 +76,7 @@
   display: flex;
   justify-content: space-between;
   button {
-    -webkit-box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
-    box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
   font-weight: bold;
   width: 100px;
   height: 30px;

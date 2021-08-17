@@ -1,3 +1,11 @@
+.billing {
+  h2 {
+    margin: 25px 0px 0px;
+    text-align: center;
+  }
+}
+
+
 .bill {
   -webkit-box-shadow: 16px 17px 33px -10px rgba(34, 60, 80, 0.13);
   -moz-box-shadow: 16px 17px 33px -10px rgba(34, 60, 80, 0.13);
@@ -5,13 +13,10 @@
   
   background-color: rgb(255, 255, 255);
   max-width: 1140px;
-  padding: 20px 50px;
-  margin: 5vw auto;
+  padding: 0px 50px 20px;
+  margin: 25px auto 0px;
   text-align: center;
-  
-  h2 {
-    font-size: 30px;
-  }
+
 
   div {
     text-align: left;

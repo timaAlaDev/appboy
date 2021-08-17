@@ -1,317 +1,355 @@
-import React, { useState, useEffect } from "react";
-import ProjectService from './../../service/ProjectService';
-import { Link } from 'react-router-dom';
-
+import React, { useState, useEffect, useRef } from "react";
 import { CgDanger } from 'react-icons/cg'
+import { ImEye } from 'react-icons/im'
+import Modall from './../Project/Modall';
+import defualtAvatar from '../../img/default-avatar.jpg'
+import ReactPlayer from 'react-player'
+import { Editor } from '@tinymce/tinymce-react';
+import editorInit from "../../service/EditorInit";
 
 
+function Details (props){
+  
+  //------------Prop  s from 'EditProject'--------------
+  const currentProject = props.currentProject;
+  const handleInputChange = props.handleInputChange;
+  const projectFormData = props.projectFormData;
+  const image = props.imageChange;
+  const [dataLoaded, setDataLoaded] = useState(false)
 
-function Details(props) {
+  useEffect(() => {
+  props.getProject(props.match.params.id)
+  setDataLoaded(true)
+  }, [props.match.params.id]);
+  //------------------------end------------------------
 
-    const initialProjectState = {
-        id: null,
-        title: "",
-        image: "",
-        short_description: "",
-        city_id: "",
-        sum_of_money: "",
-        closed_at: "",
-        video_or_animation: "",
-        detail_description: "",
-        published: false
+
+  //-------------------TinyMCE Editor------------------
+  const editorRef = useRef();
+  const [editorValue, setEditorValue] = useState()
+  const handleEditorChange = () => {
+    const data = editorRef.current.getContent()
+    setEditorValue(data)
+  }
+  useEffect(() => {
+    // const data = editorRef.current.getContent()
+    setEditorValue(currentProject.detail_description)
+  }, [])
+  //----------------------end--------------------------
+
+
+  //----------------------Appends----------------------
+  projectFormData.append('id', props.match.params.id);
+  projectFormData.append('image', image);
+  projectFormData.append('title', currentProject.title);
+  projectFormData.append('short_description', currentProject.short_description);
+  // projectFormData.append('city_id', currentProject.city_id);
+  projectFormData.append('sum_of_money', currentProject.sum_of_money);
+  projectFormData.append('closed_at', currentProject.closed_at);
+  projectFormData.append('video_or_animation', currentProject.video_or_animation );
+  projectFormData.append('detail.description', editorValue)
+  //------------------------end------------------------ 
+  
+
+  //-----------------Предосмотр проекта--------------------
+  const ProjectImage = (process.env.MIX_APP_URL + '/' + currentProject.image)
+  const [modallActive, setModallActive] = useState(false); 
+  const fileInputRef = useRef();
+  const [preview, setPreview] = useState();
+
+  useEffect(() => {
+    if (image) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
       };
-
-    const [currentProject, setCurrentProject] = useState(initialProjectState);
-    const [message, setMessage] = useState("");
-
-    console.log(currentProject);
-
-    const getProject = () => {
-         ProjectService.getAll()
-          .then(response => {
-            setCurrentProject(response.data);
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-    };
-
-    useEffect(() => {
-    getProject(props.match.params.id);
-    }, [props.match.params.id]);
+      reader.readAsDataURL(image);
+    } else {
+      setPreview(null)
+    }
+  }, [image]);
+  //---------------end Предосмотр проекта---------------
 
 
-    const handleInputChange = event => {
-    const { name, value } = event.target;
-    setCurrentProject({ ...currentProject, [name]: value });
-    };
-    console.log(setCurrentProject)
+return (
+    <div className="createProject-inner">
+        {currentProject ? (
+        <form>
+          <div className="create-inner size3">
+            <label className="size">Название проекта</label>
+            <input
+              minLength="3"
+              maxLength="70"
+              className="create-input"
+              placeholder="Не более 50 символов"
+              type="text"
+              name ="title"
+              value={currentProject.title || ''}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
 
+          <div className="create-inner">
+            <label className="size size2">
+              Главное изображение проекта 
+              <span className="tip" data-tool="Изображение с разришением 650x350">
+                <CgDanger/>
+              </span>
+            </label>
 
-    const updateProject = () => {
-        ProjectService.update(currentProject.id, currentProject)
-        .then(response => {
-        console.log(response.data);
-        setMessage("Проект обновился!!!!!!");
-        })
-        .catch(e => {
-        console.log(e);
-        });
-    };
+            <div style={{boxShadow: '0px 0px 1px black', padding: '15px 0px 15px 15px'}} >
+              <button  
+                className="create-img "
+                onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+                }}>   
+                Загрузить изображение 
+              </button> 
 
+              <input style = {{display: 'none'}}
+                type="file" 
+                ref={fileInputRef}
+                accept="image/*"
+                name="image"
+                onChange={props.handleImageChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="create-inner">
+            <label className="size">Краткое описание</label>
+
+            <textarea
+              minLength="8"
+              maxLength="256"
+              name ="short_description"
+              value={currentProject.short_description || ''}
+              onChange={handleInputChange}
+              style={{
+                resize: 'none'
+              }}
+              placeholder="Коротко о проекта"
+              required
+
+            />
+          </div>
+
+          <div className="create-inner">
+            <label className="size size2">Сумма сбора <span className="tip" data-tool="Сумма будет указана в монетах"><CgDanger/></span></label>
+            <input 
+              placeholder="1 000 000"
+              type="number"
+              name ="sum_of_money"
+              value={currentProject.sum_of_money || ''}
+              onChange={handleInputChange}
+              required
+
+            />
+          </div>
+
+          <div className="create-inner">
+            <label className="size">Дата завершение проекта</label>
+            <input
+                value={currentProject.closed_at || ''}
+                onChange={handleInputChange}
+                type="date"
+                name="closed_at"
+                required
+            />
+          </div>
+          
+          <div className="create-inner create-video-container">
+            <label className="size size1">Видео или анимация</label>
+            <div style={{boxShadow: '0px 0px 1px black'}}>
+            <input className="create-video"
+                type="text"
+                name="video_or_animation"
+                value={currentProject.video_or_animation || ''}
+                onChange={handleInputChange}
+                placeholder="Ссылка на видео (youtube)"
+
+            />
+              { dataLoaded &&
+                dataLoaded ? 
+                <ReactPlayer
+                className='react-player'
+                url={currentProject.video_or_animation}
+                controls={true}
+                height="225px"/>
+                 : null
+              }
+                   
+            </div>
       
-    function viewAlert() {
-    alert(message);
-    }
-    
- 
+          </div>
 
-    //Вывод данных(description) для пользователя
-    function valueTitle () {
-      setInputTitle(titleInput.current.value);
+          <div className="create-inner create-editor-container">
+            <label htmlFor="editor" className="size">Детальное описание
+            </label>
+
+            <div className="pos-abs">
+            <Editor
+              initialValue={currentProject.detail_description}
+              onInit={(evt, editor) => editorRef.current = editor}
+              init={(editorInit)}
+              onChange={handleEditorChange}
+          />
       
-    }
-    function valueDescrip () {
-      setInputDescrip(descripInput.current.value);
-    }
+              {/* <textarea name="fullDescrip"    
+                  value={currentProject.detail_description || ''}
+                  name="detail_description"
+                  onChange={handleInputChange}
+                  className="fullDescrip-input"
+              > 
+              </textarea> */}
+            </div>
+          </div>
 
-    let titleInput = React.createRef();
-    let descripInput = React.createRef();
-
-
-    const [inputTitle, setInputTitle] = useState('');
-    const [inputDescrip, setInputDescrip] = useState('');
-
-     
-
-    return (
-        <div className="createProject-inner">
-            {currentProject ? (
-            <form onSubmit={updateProject}>
-                <div className="create-inner size3">
-                    <label className="size">Название проекта</label>
-                    <input
-                        
-                        className="create-input"
-                        placeholder="Не более 50 символов"
-                        type="text"
-                        value={currentProject.title}
-                        onChange={handleInputChange}
-                        ref={titleInput}
-                        onInput={valueTitle}
-                    />
-                </div>
-
-                <div className="create-inner">
-                    <label className="size size2">
-                        Главное изображение проекта <span className="zxczxc" data-tool="Изображение с разришением 650x350"><CgDanger/></span>
-                    </label>
-                    <input className="create-img"
-                        type="file"
-                        value={currentProject.image}
-                        onChange={handleInputChange}
-                    />
-                </div>
+          <button  className="create-btn" onClick = {props.updateProject} type = "button"> 
+            {/* <Link to= {`/editProject/reward/${currentProject.id}`} className = "link-text">
+              Сохранить и продолжить
+            </Link> */}
+            Сохранить
+          </button>
+   
+        </form>
+        ) : (
+            <div>
+                <h5>Здесь пока нет проекта</h5>
+            </div>
+        )}
 
 
-                <div className="create-inner">
-                    <label className="size">Краткое описание</label>
-                    <textarea 
-                        maxLength="256"
-                        value={currentProject.short_description}
-                        onChange={handleInputChange}
-                        style={{
-                          resize: 'none'
-                        }}
-                        placeholder="Коротко о проекта"  
-                        onInput={valueDescrip}
-                        ref={descripInput}
-                    />
-                </div>
-
-                {/* <div className="create-inner">
-                    <label className="size">Город проекта</label>
-                    <select name="" id="create-city"
-                      
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}>
-                        <option value="Алма-ата">Алма-ата</option>
-                        <option value="Нур-Султан">Нур-Султан</option>
-                        <option value="Шымкент">Шымкент</option>
-                        <option value="Актобе">Актобе</option>
-                        <option value="Караганда">Караганда</option>
-                        <option value="Тараз">Тараз</option>
-                        <option value="Павлодар">Павлодар</option>
-                        <option value="Усть-Каменогорск">Усть-Каменогорск</option>
-                        <option value="Семей">Семей</option>
-                        <option value="Атырау">Атырау</option>
-                        <option value="Костанай">Костанай</option>
-                        <option value="Кызылорда">Кызылорда</option>
-                        <option value="Уральк">Уральск</option>
-                        <option value="Петропавловск">Петропавловск</option>
-                        <option value="Актау">Актау</option>
-                        <option value="Темиртау">Темиртау</option>
-                        <option value="Туркестан">Туркестан</option>
-                        <option value="Кокшетау">Кокшетау</option>
-                        <option value="Талдыкорган">Талдыкорган</option>
-                        <option value="Экибастуз">Экибастуз</option>
-                        <option value="Рудный">Рудный</option>
-                      </select>
-                        
-
-                </div> */}
-
-                <div className="create-inner">
-                    <label className="size size2">Сумма сбора <span className="zxczxc" data-tool="Сумма будет указана в коинах"><CgDanger/></span></label>
-                    <input 
-                        
-                        placeholder="1 000 000"
-                        type="number"
-                        value={currentProject.sum_of_money}
-                        onChange={handleInputChange}
-                    />
-                </div>
-
-                <div className="create-inner">
-                    <label className="size">Дата завершение проекта</label>
-                    <input
-                        
-                        value={currentProject.closed_at}
-                        onChange={handleInputChange}
-                        type="date"
-                    />
-                </div>
-
-                
-                <div className="create-inner">
-                    <label className="size size1">Видео или анимация</label>
-                    <input className="create-video"
-                        type="file"
-                        value={currentProject.video_or_animation}
-                        onChange={handleInputChange}
-                    />
-                </div>
-
-                <div className="create-inner">
-                    <label className="size">Детальное описание</label>
-                    <textarea name="fullDescrip" id="" cols="30" 
-                    rows="10"    
-                        
-                        value={currentProject.detail_description}
-                        onChange={handleInputChange}
-                        className="fullDescrip-input"
-                        style={{
-                          height: '350px',
-                          resize: 'none',
-                        }}> 
-                    </textarea>
-                </div>
-                
-                <button type="submit"  className="create-btn" onClick={viewAlert} > 
-                    Сохранить
-                    {/* <Link onClick={() => props.setToggleState(2)} to= "/editProject/reward" className = "link-text">
-                      Сохранить и продолжить
-                    </Link> */}
-                </button>
 
 
-            </form>
-            ) : (
-                <div>
-                    <h5>Здесь пока нет проекта</h5>
-                </div>
-            )}
 
-            <div className="createProject-item-form">
-                <img
-                    src="https://www.shopcrossgates.com/wp-content/uploads/sites/18/2020/05/1920x1080-356x200.png"/>
-                <div className="cattegory-link">
-                </div>
 
-                <h2 className="project-title"> 
-                    {inputTitle}
-                </h2>
-                
-                <div className="project-description" > 
-                    {inputDescrip}
-                </div>
 
-                <progress className="progress-line" value="1" max="100">
-                </progress> 
 
-                <div className="project-progress">
-                    <div>
-                        <span>0%</span>
-                        <p>идет сбор</p>
-                    </div>
+{/*------------------------------------ Начало предпросмотра------------------------------ */}
+      <div className="create-project-item-container">
+        <h3>Превью проекта</h3>
+        <div className="createProject-item-form">
+          <img src = {
+             preview &&
+             preview  ?(preview) : (ProjectImage)
+          }/>
 
-                    <div>
-                        <span>0</span>
-                        <p>собрано</p>
-                    </div>
-                </div>
+          <h2 className="project-title"> 
+              {currentProject.title}
+          </h2>
+          
+          <div className="project-description" > 
+            {currentProject.short_description}
+          </div>
+
+
+          <progress className="progress-line" value="1" max="100"> 
+          </progress> 
+
+          <div className="project-progress">
+            <div>
+              <span>0%</span>
+              <p>идет сбор</p>
             </div>
 
+            <div>
+              <span>0</span>
+              <p>собрано</p>
+            </div>
+          </div>
+
+          <button className="preview-bg"  type="button"> 
+            <ImEye/> 
+
+            <span onClick={()=> setModallActive(true)} className="preview-btn">
+              предосмотр 
+            </span>
+          </button> 
         </div>
+      </div>
+        <Modall ModallShown={modallActive} setModallShown={setModallActive}>
+          <section className="ProjectHead">
+            <aside className="head__left">
+              <div className="head__img">
+              <img src = { 
+                preview &&
+                preview ?(preview) : (ProjectImage)}/>
+              </div>
+
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}>
+
+              <article className="head__under">
+              </article>
+
+              <article className="head__under">
+                Павлодар
+              </article>
+              </div>
+            </aside>
+
+            <aside className="head__right">
+              <h2 className="projectHead__title word-break">
+                {currentProject.title}
+              </h2>
+
+              <p className="projectHead__descrip word-break">
+                {currentProject.short_description}
+              </p>
+
+              <div className="projectHead__flex">
+                <div className="head__contacts"> 
+                  <div className="head__author">
+                    <img src={defualtAvatar} alt=""/> 
+                    Бред Питт
+                  </div>
+                </div>
+
+                <div className="head__score">
+                  <div className="head__count">
+                    <div className="headCurrentCount">
+                      <span>
+
+                    0 монет
+                      </span>
+                    </div>
+
+                    <div className="headCounOf">
+                      собрано из {currentProject.sum_of_money}
+                    </div>
+                  </div>
+
+                  <div className="head__patreons">
+                    <div className="patreonsCount">
+                      0 спонсор(ов)
+                    </div>
+                    <div className="daysBefore">
+                      25 дней
+                    </div>
+                  </div>
+                </div>
+
+                <div className="head__button">
+                  <button>
+                  Пожертвовать
+                  </button>
+                </div>
+
+
+              </div>
+            </aside>
+
+          </section>
+        </Modall>
+
+    </div>
     );
 }
 
 export default Details;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const [title, setTitle] = useState("");
-// const [image, setImage] = useState("");
-// const [short_description, setShort_description] = useState("");
-// const [city_id, setCity_id] = useState("");
-// const [sum_of_money, setSum_of_money] = useState("");
-// const [closed_at, setClosed_at] = useState("");
-// const [video_or_animation, setVideo_or_animation] = useState("");
-// const [detail_description, setDetail_description] = useState("");
-
-
-
-// function onCreatPost(e) {
-//     e.preventDefault();
-//     const postData = {
-//         title,
-//         image,
-//         short_description,
-//         city_id,
-//         sum_of_money,
-//         closed_at,
-//         video_or_animation,
-//         detail_description,
-//     };
-
-//     api
-//         .post("", postData)
-//         .then((response) => {
-//             console.log(response);
-//         })
-//         .catch((error) => {
-//             console.log(error);
-//         });
-    
-// }

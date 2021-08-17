@@ -36,7 +36,7 @@ export default function CreateProject() {
             <b>Создать новый проект</b>
           </Link>   
 
-          <Link to= "/projectAuthor"
+          <Link to= "/myProjects"
             className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
             onClick={() => toggleTab(2)}> 
             <b>Мои проекты</b>

@@ -3,60 +3,106 @@ import React from 'react'
 import Modall from './Modall'
 import { useState } from 'react';
 import defaultAvatar from './../../img/default-avatar.jpg'
+import ReactPlayer from 'react-player'
 
-export default function ProjectHead (props) {
+
+
+export default function ProjectHead ({project}) {
+
+  const video = project.video_or_animation
+  const [imgVideo, setImgVideo] = useState(null)
+  React.useEffect(() => {
+    // switch(video) {
+    //   case null: 
+    //     setImgVideo(false)
+    //   case "null":
+    //     setImgVideo(false)
+    //   case undefined: 
+    //     setImgVideo(false)
+    //   case "undefined":
+    //     setImgVideo(false)
+    //   case false: 
+    //     setImgVideo(false)
+    //   case video:
+    //     setImgVideo(true)
+    // }
+    if (video === null) {
+      setImgVideo(false)
+    } else if (video === "null"){
+      setImgVideo(false)
+    } else if (video === undefined) {
+      setImgVideo(false)
+    } else if (video) {
+      setImgVideo(true)
+    }
+  },[video] )
+
+  console.log(project.video_or_animation);
+
+  const cover = (`${process.env.MIX_APP_URL}/${project.image}`)
+
   const [modallActive, setModallActive] = useState(false); 
+  const [modallAgree, setModallAgree] = useState(false)
 
   const [increment, setIncrement] = useState(0)
 
-  function increase () {
+  const handlePaymentBtn = () => {
+    if (increment > 100) {
+      setModallAgree(true)
+    }
+  }
+
+  const increase = () => {
     setIncrement(increment + 100)
   } 
 
-  function decrease () {
+  const decrease = () => {
     if (increment > 0) {
       setIncrement(increment - 100)
     }
   }
-  function decrease1000 () {
+  const decrease1000 = () => {
     if (increment >= 1000) {
       setIncrement(increment - 1000)
     }
   }
   
-  function decrease10000 () {
+  const decrease10000 = () => {
     if (increment >= 10000) {
       setIncrement(increment - 10000)
     }
   }
-  function increase1000 () {
+  const increase1000 = () => {
     setIncrement(increment + 1000)
   } 
-  function increase10000 () {
+  const increase10000 = () => {
     setIncrement(increment + 10000)
   } 
 
-  function increase100000 () {
+  const increase100000 = () => {
     setIncrement(increment + 100000)
   } 
 
-  function decrease100000 () {
+  const decrease100000 = () => {
     if (increment >= 100000) {
       setIncrement(increment - 100000)
     }
   }
-  
-
-
 
   return (
     <section className="ProjectHead">
       <aside className="head__left">
         <div className="head__img">
-          <img src="https://img.kapital.kz/X__9gO9jOc4/bG9jYWw6Ly8vbGVnYWN5L2ltYWdlcy85LzUvMS9jL2UvNmQ1NGNhMWUwMjkwODY3YzQ2NjNkNWNjNDhkLmpwZw"/>
-        </div>
-
-        <div style={{
+          {imgVideo ? 
+            <ReactPlayer
+              className="head__video"
+              url={project.video_or_animation}
+              light={cover}
+              controls={true}/> 
+              :
+              <img src= {(process.env.MIX_APP_URL + '/' + project.image)} /> 
+          }
+          <div style={{
           display: 'flex',
           justifyContent: 'space-between',
         }}>
@@ -67,14 +113,15 @@ export default function ProjectHead (props) {
           Павлодар
         </article>
         </div>
+        </div>
       </aside>
 
       <aside className="head__right">
         <h2 className="projectHead__title">
-          Сьдобные Ложки 
+          {project.title} 
         </h2>
         <p className="projectHead__descrip">
-          Hello every nyan, I wish i was a bird. How are you I'm okay thankyou. Oh my godness, how are you! Okay thankyou? Hello every nyan, I wish i was a bird. How are you I'm okay thankyou. Oh my godness, how are you! Okay thankyou? How are you I'm okay thankyou.
+          {project.short_description}
         </p>
 
         <div className="projectHead__flex">
@@ -95,7 +142,7 @@ export default function ProjectHead (props) {
               </div>
 
               <div className="headCounOf">
-                собрано из 12312312
+                собрано из <span>{project.sum_of_money}</span>
               </div>
             </div>
 
@@ -147,8 +194,18 @@ export default function ProjectHead (props) {
                 Для получения вознаграждения за пожертвование, перейдите во вкладку выбора вознаграждений на странице проекта.
               </p>
 
-              <button> Пожертвовать {increment}ед.</button>
+              <button className="backer-btn" onClick={handlePaymentBtn} > Пожертвовать <pre>{increment}ед.</pre> </button>
 
+            </div>
+          </Modall>
+          <Modall ModallShown={modallAgree} setModallShown={setModallAgree} >
+            <div className="modall-agree">
+              <p>Вы действительно хотите пожертвовать проекту:</p>
+                <span>{increment} ед.</span>
+                <div className="modall-agree-btn">
+                  <button>Да</button>
+                  <button onClick={() => setModallAgree(false)}>Нет</button>
+                </div>
             </div>
           </Modall>
 

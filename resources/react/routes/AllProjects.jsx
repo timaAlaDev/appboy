@@ -1,82 +1,88 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SideBar from './../modules/Sidebar';
 import ProjectService from '../service/ProjectService';
 
 
-
 const AllProjects = () => {
+
+   const loadingLogo = (process.env.MIX_APP_URL + '/images/loadingLogo.gif')
 
    const [projects, setProjects] = useState([]);
 
+   const [dataLoaded, setDataLoaded] = useState(false) 
+
    useEffect(() => {
       retrieveProjects();
+ 
     }, []);
 
 
-   const retrieveProjects = () => {
-      ProjectService.getAll()
+   const retrieveProjects = async () => {
+    await ProjectService.getAll()
       .then(response => {
          setProjects(response.data);
          console.log(response.data);
       })
-      .catch(e => {
+      .catch(e => { 
          console.log(e);
-      });
+      })
+      setDataLoaded(true)
    };
 
 
    return (
       <div className= "allProjects">
-
          <div className="all__arcticle">
             <h1 style={{ fontFamily: 'Montserrat, sans-serif'}}>
-               Все проекты
+               Все проекты 
             </h1> 
             <SideBar ctg={['Рекомендованные', 'Новые', 'Бизнес', 'Еда', 'Технологий и Иноваций', 'Образование']}/>
-         </div>
+         </div> 
 
-         <div className="allProject-form-container">
-            {projects.map((project) => (
-               <div key={project.id} className="project-form-item" >
-                  <img src="https://www.shopcrossgates.com/wp-content/uploads/sites/18/2020/05/1920x1080-356x200.png"/>
+        {dataLoaded ?   
+        <div className="allProject-form-container">  
+          {projects.map((project) => (
 
-                  <div className="cattegory-link">
-                     {project.short_description}
-                  </div>
+             <div key={project.id} className="project-form-item" >
+               <Link to= {`/project/${project.id}`}>
+                  <img src= {(process.env.MIX_APP_URL + '/' + project.image)} />
+               </Link>
 
-                  <p className="project-title">
-                     {project.title}
-                  </p>
+               <p className="project-title">
+                   {project.title}
+                </p>
 
-                  <div className="project-description">
-                     {project.detail_description}
-                  </div>
+             
+                <div className="project-description">
+          
+                   {project.short_description}
+                </div>
 
-                  <progress className="progress-line" value="50" max="100"></progress>
+                <progress className="progress-line" value="50" max="100"></progress>
 
-                  <div className="project-progress">
-                     <div>
-                        <span>100 %</span>
-                        <p>идет сбор</p>
-                     </div>
+                <div className="project-progress">
+                   <div>
+                      <span>100 %</span>
+                      <p>идет сбор</p>
+                   </div>
 
-                     <div>
-                        <span>129999 тг</span>
-                        <p>собрано</p>
-                     </div>
-                  </div>
+                   <div>
+                      <span>129999 тг</span>
+                      <p>собрано</p>
+                   </div>
+                </div>
 
-                  <Link
-                     to={"/editProject/details/" + project.id}
-                  >
-                     Редактировать
-                  </Link>
+                <Link
+                   to={"/editProject/details/" + project.id}>
+                   Редактировать
+                </Link>
 
-               </div>
-               ))
-            }
-         </div>
+             </div>
+             ))
+          }
+       </div> : <h2 style={{textAlign: 'center'}}><img src={loadingLogo} width="100px" /></h2>}
+       
 
       </div>
 

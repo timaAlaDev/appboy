@@ -27,7 +27,9 @@ html {
     font-family: $font;
     background-color: #fff;
     box-sizing: border-box;
-    width: 100%;
+}
+body {
+  box-sizing: inherit;
 }
 *,
 *:before,
@@ -50,4 +52,16 @@ html {
 }
 button {
   border: none;
+}
+
+
+.mce-content-body {
+  min-height: 500px;
+}
+
+
+.govno {
+  &:nth-child(even) {
+    color: red;
+  }
 }

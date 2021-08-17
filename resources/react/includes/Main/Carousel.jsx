@@ -4,20 +4,23 @@
  import slide3 from './../../img/slide3.jpg'
  import slide4 from './../../img/slide4.jpg'
 
-export default function Carousell() {
+export default function Carousell({slideT}) {
 
-   onload = start
+   React.useEffect(() => {
+      start()
+   }, [])
+
 function start(){	
 let i = 1;
 function Move(){ 	
 	i = (i%4)+1; // 4 is the Number of image in slider
 	document.getElementById('i'+i).checked = true;
 }
-  setInterval(Move,5000); 
+  setInterval(Move,10000); 
 }
 
     return (
-<div>
+
   <div className="slider">
     <input type="radio" id="i1" name="images" defaultChecked />
     <input type="radio" id="i2" name="images" />
@@ -27,7 +30,7 @@ function Move(){
       <div className="slide-content1">
         <img className="content-img" src={slide1} alt="" />
           <div className="content-body">
-            <h2>Съедобные ложки</h2>
+            <h2>{slideT}</h2>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit quae dignissimos facilis architecto aliquid hic.
             Lorem ipsum dolor sit amet consectetur adipisicing elit. 
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, adipisci esse neque sunt velit voluptas!
@@ -91,8 +94,6 @@ function Move(){
       <label htmlFor="i4" className="dots" id="dot4" />
     </div>
   </div>
-</div>
-
   );
 }
 

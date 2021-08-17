@@ -1,7 +1,7 @@
 import React from 'react';
 import useForm from './../includes/useForm.jsx'
 import validateinfo from './../includes/validateInfo.jsx'
-// import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const SignUp = () => {
    const {handleChange, values, errors, handleSubmit} = useForm(validateinfo);
@@ -33,7 +33,6 @@ const SignUp = () => {
                   />
                   {errors.name && <p className="input-error">{errors.name}</p>}
             </div>
-
             <div className="regform-inputs">
                {/* <label htmlFor="email" className="form-label">
                   Почта
@@ -85,7 +84,10 @@ const SignUp = () => {
                Создать профиль
             </button>
             <span className="form-input-login">
-               <br/> Уже зарегистрированы? Можете <a href="#">войти здесь</a>.
+               <br/> Уже зарегистрированы? Можете "
+               <Link to= "/login">
+                  войти здесь
+               </Link>".
             </span>
             </div>
          </form>

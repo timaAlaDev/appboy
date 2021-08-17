@@ -7,6 +7,9 @@
   justify-content: space-between;
   margin: 15px auto;
 }
+button {
+  font-family: $font;
+}
 .create-container {
   max-width: 750px;
   width: 100%;
@@ -21,6 +24,7 @@
   display: grid;
   grid-template-columns: 34.5% 65.5%;
   box-shadow: 0px 0px 1px black;
+  position: relative;
   input, textarea {
     padding-left: 15px;
     box-shadow: 0px 0px 1px black;
@@ -37,8 +41,15 @@ select {
   padding-left: 10px;
   font-size: 18px;
 }
-.create-video, .create-img {
+.create-video{
   padding: 15px 0px 15px 15px;
+  max-width: 491px;
+  width: 100%;
+}
+.create-img {
+    border-bottom: dashed 1px black;
+    text-transform: uppercase;
+    font-size: 12px;
 }
 .size {
   font-weight: bold;
@@ -48,6 +59,7 @@ select {
   min-height: 55px;
   align-items: center;
   font-family: $Font;
+  margin: 0;
 }
 .size1 {
   margin-bottom: 0px;
@@ -120,7 +132,7 @@ select {
 }
 .tip:hover::before {
   font-weight: 200;
-  opacity: 1;
+  opacity: .9;
   visibility: visible;
 }
 
@@ -131,25 +143,35 @@ select {
 
 
 .createProject-inner, .createReward-inner {
-  position: relative;
+  position: relative; 
 }
-.createProject-item-form {
-  word-break: break-all;
+.create-project-item-container {
   position: absolute;
   top: 0;
   right: -380px;
-  max-width: 356px;
+  min-width: 356px;
+  h3 {
+    text-align: center;
+    font-family: $Font;
+  }
+}
+.createProject-item-form {
+  word-break: break-all;
   width: 100%;
+  max-width: 356px;
   transition: .2s ;
   display: flex;
   flex-direction: column;
   box-shadow: black 0px 1px 1px;
+  font-family: $font;
+
   &:hover {
     box-shadow: 1px 1px 52px 3px rgba(34, 60, 80, 0.24);
   }
   img {   
       object-fit: cover;
       margin-bottom: 25px;
+      max-height: 226px;
   }
 }
 // Форма вознаграждения
@@ -160,29 +182,102 @@ select {
   position: absolute;
   top: 0;
   right: -375px;
-  max-width: 356px;
+  max-width: 350px;
   width: 100%;
   display: flex;
   flex-flow: column;
   font-family: $font;
-  padding: 15px;
   .reward-img {
-    margin: -15px;
     img {
-    width: 356px;
+      width: 350px;
+      max-height: 176px;
+      object-fit: cover;
     }
   }
-
+  .children-reward-form {
+    margin: 15px 10px;
+  }
 }
+
+.preview-btn {
+  border-bottom: dashed 1px black;
+  font-weight: lighter;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-family: $font;
+  margin-left: 5px;
+}
+
 .words {
   word-break: break-all;
 }
+.word-break {
+  word-break: break-all;
+}
+
+
+.create-editor-container {
+  display: flex;
+  flex-flow: column;
+  position: relative;
+}
+
+.tox {
+  max-width: 750px;
+  img {
+    max-width: 740px;
+  }
+}
+.react-player {
+  max-width: 450px;
+  max-height: 250px;
+  margin: 25px auto 10px;
+}
+
+.moder-after {
+  max-width: 80vh;
+  width: 100%;
+  .moder-after-inner {
+    text-align: center;
+    width: 100%;
+    h3 {
+      margin-bottom: 20px;
+    }
+    .moder-after-link {
+      font-size: 20px;
+    }
+    button {
+      max-width: 60px;
+      height: 30px;
+      width: 100%;
+      margin: 20px auto 0px;
+      font-size: 18px;
+    }
+  }
+}
+.disabled-create-btn {
+  display: inline-block;
+  box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  height: 50px;
+  width: 150px;
+  margin: 15px auto;
+  @include button;
+  background-color: black;
+}
+
+@media screen and (max-width: 1275px) {
+  .preview-bg {
+    display: none;
+  }
+}
+
 
 @media screen and (max-width: $width) {
   .size {
     font-size: 11px;
   }
-  .createProject-item-form {
+  .create-project-item-container {
     position: static;
     margin: 25px auto;
   }
@@ -191,4 +286,21 @@ select {
     margin: 25px auto;
   }
 }
+
+@media screen and (max-width: 750px) {
+  .create-video-container {
+    display: flex;
+    flex-flow: column;
+    .create-video {
+      max-width: 100%;
+    }
+    .react-player {
+      margin: 10px auto 10px;
+      max-width: 100%;
+    }
+  }
+ 
+}
+
+
 

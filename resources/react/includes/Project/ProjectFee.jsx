@@ -19,14 +19,12 @@ export default function ProjectFee () {
       setNumberValue(e.target.value)
   } 
 
-  function handleSurnameChange (e) {
+  function handleSurnameChange (e) { 
     setSurnameValue(e.target.value)
   } 
-
-
-
-
+  
   const [modallActive, setModallActive] = useState(false); 
+  
   return (
     <div className="reward-col">
         <h5>

@@ -1,4 +1,21 @@
 .profile-page {
+  padding: 25px 0px 0px;
+  h2 {
+    text-align: center;
+    margin: 0;
+  }
+  .save-edit {
+    margin: 0 auto;
+    max-width: 250px;
+    button {
+      font-weight: 500;
+      width: 100%;
+      height: 40px;
+      @include button;
+    }
+  }
+}
+.profile-page-inner {
   display: flex;
   max-width: $width;
   width: 100%;
@@ -96,48 +113,25 @@
       }
     }
   }
-  .save-edit {
-    button {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      font-weight: 500;
-      width: 250px;
-      height: 40px;
-      @include button;
-    }
-  }
+
 }
 
 
 
 @media screen and (max-width:800px) {
-  .profile-page {
+  .profile-page-inner {
     .profile-edit {
       flex-wrap: wrap;
     }
-    .save-edit {
-      button {
-        bottom: -30px;
-        left: 50%;
-        margin-left: -125px;
-      }
-    }
-
   }
 
 }
 @media screen and (max-width:600px) {
-  .profile-page {
+  .profile-page-inner {
     padding: 0;
     margin: 25px 0px;
     flex-wrap: wrap;
     justify-content: center;
-    .save-edit {
-      button {
-        bottom: -40px;
-      }
-    }
     .profile-edit {
       margin-top: 25px;
       flex-flow: column;

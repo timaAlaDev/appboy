@@ -3,23 +3,33 @@
   font-family: $font;
   display: flex;
   max-width: $width;
-  .head__img {
-    img {
-      object-fit: fill;
-      width: 650px;
-      height: 350px;
-      -webkit-box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
-      -moz-box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
-      box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+  .head__left {
+    max-width: 650px;
+    width: 100%;
+    .head__img {
+      background-color: #f4f4f4;
+      img {
+        object-fit: cover;
+        width: 650px;
+        height: 350px;
+        -webkit-box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.1);
+      }
+    }
+    .head__video {
+      max-width: 100%;
     }
   }
+
   .head__right {
     display: flex;
     flex-direction: column;
     margin: 0px 0px 0px 30px;
+    width: 100%;
     .ProjectHead__descrip {
       overflow: hidden;
-      line-height: 1.1;
+      line-height: .9;
     }
   }
   .head__under {
@@ -63,7 +73,7 @@
       margin-top: 30px;
     .headCurrentCount {
       font-weight: bolder;
-      font-size: 30px;
+      font-size: 25px;
     }
   }
   .head__patreons {

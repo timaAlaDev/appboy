@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import defaulAvatar from "./../../img/default-avatar.jpg";
+import parser from 'html-react-parser'
 
-export default function ProjectMain(props) {
+export default function ProjectMain({project}) {
     const [toggleState, setToggleState] = useState(1);
 
     const toggleTab = (index) => {
@@ -12,7 +13,7 @@ export default function ProjectMain(props) {
     const [showName, setShowName] = useState(false);
     const [commentValue, setCommentValue] = useState('')
 
-    function showTextArea() {
+    const showTextArea = () => {
       setShowName(!showName);
     }
   
@@ -23,14 +24,14 @@ return (
       <div className="block-tabs">
           <button className={toggleState === 1 ? "tabs active-tabs" : "tabs"}onClick={() => toggleTab(1)}>
               Проект
-          </button>
+          </button> 
 
-          <button
+          <button 
               className={toggleState === 2 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(2)}>
               История проекта
           </button>
 
-          <button
+          <button 
               className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
               onClick={() => toggleTab(3)}>
               Дневник-автора
@@ -39,61 +40,9 @@ return (
 
       <div className="content-tabs">
         <div className={ toggleState === 1 ? "content  active-content": "content"}>
-          <div className="main-info">
-
-            <div className="main-img">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBB_T2zeI5Jo4fnwW6TMGx0-6YYS_m4HRtHMyWYctaXOXymEh0yRKMEGnd4cEO4td2PZI&usqp=CAU" />
-            </div>
-
-           <div className="main-text">
-            <p>
-                Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Quaerat unde recusandae,
-                sapiente optio impedit doloremque culpa
-                natus! Lorem, ipsum dolor sit amet
-                consectetur adipisicing elit. Eligendi, aut
-                perferendis neque sequi tempore temporibus
-                repellendus, debitis itaque non consectetur
-                quidem commodi vitae alias quia? Dolor,
-                perferendis! Repudiandae delectus libero
-                odio alias iusto ipsum eaque non modi
-                corporis fuga quod aliquid ipsam possimus
-                facilis impedit molestias vero id totam,
-                neque suscipit. Deleniti iure quae veritatis
-                deserunt harum, quo similique ipsum corrupti
-                amet dolores, molestiae placeat ab modi
-                fuga. Nulla mollitia non aperiam debitis
-                aspernatur dignissimos, voluptatum, in
-                incidunt consectetur deserunt similique
-                quidem eos unde vero? Veritatis eum
-                excepturi, recusandae sequi sapiente
-                temporibus ut exercitationem libero porro
-                adipisci! Inventore, dolorum at
-            </p>
-          </div>
-
-          <div className="main-video">
-            <img src="https://media.giphy.com/media/l4EpjhhOhIsxydetG/giphy.gif" />
-          </div>
-
-          <div className="main-text">
-            <p>
-              текст
-            </p>
-          </div>
-          
-          <div className="main-text">
-            <p>
-              текст
-            </p>
-          </div>
-          
-          <div className="main-text">
-            <p>
-              текст
-            </p>
-          </div>
-
+          <div className="main-info"  >
+          {/* {dangerouslySetInnerHTML = {{__html: (project.detail_description) }}} */}
+          {parser(project.detail_description)}
           </div>
         </div>
      </div>
@@ -108,7 +57,7 @@ return (
           </div>
           <div className="descrip-change ">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, tempora dolorum. Expedita, dolor est dicta error amet officiis 
-          </div>
+          </div> 
           <div className="description-change ">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed laudantium labore iste laboriosam nihil saepe explicabo tempore, at ad obcaecati aut consectetur aliquam omnis totam accusantium eaque, vel, ducimus repudiandae veritatis cupiditate nobis? Optio cupiditate nulla, accusamus modi esse aliquam non fuga nisi vel laborum accusantium, tenetur nam temporibus molestiae.
           </div>
